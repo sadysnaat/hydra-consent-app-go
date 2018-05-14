@@ -35,9 +35,9 @@ func main() {
 
 	// Initialize the hydra SDK. The defaults work if you started hydra as described in the README.md
 	client, err = hydra.NewSDK(&hydra.Configuration{
-		ClientID:     env.Getenv("HYDRA_CLIENT_ID", "demo"),
-		ClientSecret: env.Getenv("HYDRA_CLIENT_SECRET", "demo"),
-		EndpointURL:  env.Getenv("HYDRA_CLUSTER_URL", "http://localhost:4444"),
+		ClientID:     env.Getenv("HYDRA_CLIENT_ID", "a4a8fed7-37c1-4595-8ad1-b8d2eec03859"),
+		ClientSecret: env.Getenv("HYDRA_CLIENT_SECRET", "consent-secret"),
+		EndpointURL:  env.Getenv("HYDRA_CLUSTER_URL", "https://hydra.trxiea.com"),
 		Scopes:       []string{"hydra.consent"},
 	})
 	if err != nil {
@@ -57,15 +57,15 @@ func main() {
 	n.UseHandler(r)
 
 	// Start http server
-	log.Println("Listening on :" + env.Getenv("PORT", "3000"))
-	http.ListenAndServe(":"+env.Getenv("PORT", "3000"), n)
+	log.Println("Listening on :" + env.Getenv("PORT", "80"))
+	http.ListenAndServe(":"+env.Getenv("PORT", "80"), n)
 }
 
 // handles request at /home - a small page that let's you know what you can do in this app. Usually the first.
 // page a user sees.
 func handleHome(w http.ResponseWriter, _ *http.Request) {
 	var config = client.GetOAuth2Config()
-	config.RedirectURL = "http://localhost:4445/callback"
+    config.RedirectURL = "https://id.trxiea.com/callback"
 	config.Scopes = []string{"offline", "openid"}
 
 	var authURL = client.GetOAuth2Config().AuthCodeURL(state) + "&nonce=" + state
