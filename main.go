@@ -35,8 +35,8 @@ func main() {
 
 	// Initialize the hydra SDK. The defaults work if you started hydra as described in the README.md
 	client, err = hydra.NewSDK(&hydra.Configuration{
-		ClientID:     env.Getenv("HYDRA_CLIENT_ID", "bijaka-app-4"),
-		ClientSecret: env.Getenv("HYDRA_CLIENT_SECRET", "bijaka-secret-4"),
+		ClientID:     env.Getenv("HYDRA_CLIENT_ID", "consent-app"),
+		ClientSecret: env.Getenv("HYDRA_CLIENT_SECRET", "consent-secret"),
 		EndpointURL:  env.Getenv("HYDRA_CLUSTER_URL", "https://hydra.trxiea.com"),
 		Scopes:       []string{"hydra.consent"},
 	})
