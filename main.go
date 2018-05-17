@@ -35,8 +35,8 @@ func main() {
 
 	// Initialize the hydra SDK. The defaults work if you started hydra as described in the README.md
 	client, err = hydra.NewSDK(&hydra.Configuration{
-		ClientID:     env.Getenv("HYDRA_CLIENT_ID", "a4a8fed7-37c1-4595-8ad1-b8d2eec03859"),
-		ClientSecret: env.Getenv("HYDRA_CLIENT_SECRET", "consent-secret"),
+		ClientID:     env.Getenv("HYDRA_CLIENT_ID", "bijaka-app"),
+		ClientSecret: env.Getenv("HYDRA_CLIENT_SECRET", "bijaka-secret"),
 		EndpointURL:  env.Getenv("HYDRA_CLUSTER_URL", "https://hydra.trxiea.com"),
 		Scopes:       []string{"hydra.consent"},
 	})
@@ -65,7 +65,7 @@ func main() {
 // page a user sees.
 func handleHome(w http.ResponseWriter, _ *http.Request) {
 	var config = client.GetOAuth2Config()
-    config.RedirectURL = "https://id.trxiea.com/callback"
+    config.RedirectURL = "https://app.trxiea.com/callback"
 	config.Scopes = []string{"offline", "openid"}
 
 	var authURL = client.GetOAuth2Config().AuthCodeURL(state) + "&nonce=" + state
